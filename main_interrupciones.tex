@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+
+% Character set for input and output
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Fonts
+\usepackage{libertine}
+\usepackage[scaled=0.83]{beramono}
+
+% AMS math-packages
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+
+% TODO in text
+\usepackage{todonotes}
+
+% URL (clickable), references within document, etc./
+\usepackage{hyperref}
+
+% Code formatting
+\usepackage{listings}
+\lstset{
+   language=java,
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   frame=single,
+   extendedchars=false,
+   inputencoding=utf8,
+   captionpos=b
+}
+
+% Text / Paragraph space
+\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-0.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex plus 1ex minus 1ex}
+
+\title{Interrupciones}
+\author{{\Large Autor}\\Juan Manuel Rivera Florez\\
+        \href{mailto:juanm.rivera@udea.edu.co}{\texttt{juanm.rivera@udea.edu.co}}}
+\date{03 Julio 2020}
+%\date{December 14, 2019}
+
+\begin{document}
+
+\maketitle
+
+
+%
+Básicamente las interrupciones vienen determinadas por la ocurrencia de una señal externa que provoca la derivación a una dirección específica de memoria, interrumpiendo momentáneamente la ejecución del programa. A partir de esa dirección se encuentra la rutina de tratamiento que se encarga de realizar la operación propiamente dicha (ejecuta un código específico para tratar esta situación), devolviendo después el control al punto interrumpido del programa. 
+%
+\\
+\\
+%
+las interrupciones surgieron a tener dispositivos periféricos  ya que estos le tienen que enviar información al procesador principal, al inicio lo que el procesador hacía era sondear al periférico cada cierto tiempo para revisar si tenía pendiente una comunicación con el pero esto era ineficiente debido a que el procesador requiere cierto tiempo que cada ves podría ser mayor. Para solucionar esto se crearon las interrupciones que cada vez que un periférico mandaba una señal este genera una interrupción, el procesador trataba con esta y después continua.
+%
+\section*{Tipos de interrupciones}
+%
+
+\begin{itemize}
+    \item Interrupciones por hardware:
+    \subitem Internas: producidas por la CPU
+    \subitem Externas: producidas por dispositivos perifericos
+    \item Interrupciones por software: producidas por la ejecución de instrucciones de la CPU.
+    \item Excepciones 
+    \item Trampas - Traps
+\end{itemize}
+%
+\section*{Interrupciones a nivel de hardware}
+
+Son señales producidas por dispositivos periféricos (teclado, mouse, audifonos, etc.) para avisarle al procesador que están realizando una acción, la CPU para el proceso que estaba realizando y atiende la interrupción una vez esta es atendida la  CPU continua con lo que estaba haciendo. La placa base utiliza un controlador para decodificar esta interrupciones que son señales eléctricas producidas por los periféricos. 
+%
+\section*{Interrupciones a nivel de software}
+
+Una Interrupción software se produce cuando un usuario solicita un recurso del núcleo, mediante una llamada al sistema, open, write, read, mount, etc.
+\\
+Los pasos que se producen son los siguientes: El proceso usuario solicita la función correspondiente de la librería libc, que ha sido añadida en la compilación del proceso. df = open (fichero, modo); La función de librería coloca los parámetros de la llamada en los registros del procesador y ejecuta la instrucción INT 0x80. Se conmuta de modo usuario a modo núcleo mediante las estructuras conocidas como las tablas IDT (Tabla Descriptora de Interrupciones) y GDT (Tabla Global deDescriptores). Entra a ejecutarse una función del núcleo,  systemcall, Interfase entre el usuario y el núcleo. Cuando se termina la llamada, systemcall retorna al proceso que la llamo y se retorna a modo usuario (el tiempo estimado de ejecucion dependera de las caracteristicas del hardware).
+
+\subsection{Ejercicio de interrupciones: }
+\url{https://www.tinkercad.com/things/hjGqXbCCSeE-sizzling-luulia/editel?tenant=circuits?sharecode=7QYPTiKAXAerp3wpdOs7IhENuVnbiMda6AvALw3AkKI}
+\subsection*{Referencia}
+%
+\begin{itemize}
+    \item J.L. Tinoco Interrupciones del microprocesador  (1ra ed.) [Online] Available: \url{https://es.slideshare.net/jorg_leoxd/interrupciones-del-microprocesador}
+    \item LECCIÓN 2: INTERRUPCIONES  SOFTWARE \url{http://sopa.dis.ulpgc.es/ii-dso/leclinux/interrupciones/system_call/LEC2_INT_SOFT.pdf}
+    \item LECCIÓN 3: INTERRUPCIONES HARDWARE \url{http://sopa.dis.ulpgc.es/ii-dso/leclinux/interrupciones/int_hard/LEC3_INT_HARD.pdf}
+    \item Estructura de Computadores, Facultad de Informática \url{http://www.fdi.ucm.es/profesor/jjruz/WEB2/Temas/Curso05_06/EC9.pdf}
+
+\end{itemize}
+
+\end{document}
